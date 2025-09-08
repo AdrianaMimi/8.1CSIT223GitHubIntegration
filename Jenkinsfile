@@ -5,40 +5,14 @@ pipeline {
     pollSCM('H/5 * * * *')  
   }
 
-  options {
-    timestamps()
-    disableConcurrentBuilds()
-  }
-
   stages {
-    stage('Checkout') {
-      steps {
-        checkout scm
-      }
-    }
-
-    stage('Install') {
-      steps {
-        sh '''
-          if [ -f package-lock.json ]; then
-            npm ci
-          else
-            npm install
-          fi
-        '''
-      }
-    }
-
-    stage('Test') {
-      steps {
-        sh 'npm test'
-      }
-      post {
-        always {
-          archiveArtifacts artifacts: 'coverage/**', allowEmptyArchive: true
-        }
-      }
-    }
+    stage('Checkout') { steps { checkout scm } }
+    stage('List files') { steps { sh 'pwd && ls -la' } }
+    stage('Build (placeholder)') { steps { echo 'No build step needed for this repo' } }
+    stage('Test (placeholder)') { steps { echo 'No tests defined' } }
+    stage('Quality (placeholder)') { steps { echo 'No linters configured' } }
+    stage('Package (placeholder)') { steps { echo 'Nothing to package' } }
+    stage('Deploy (placeholder)') { steps { echo 'No deployment for this task' } }
   }
 
   post {
